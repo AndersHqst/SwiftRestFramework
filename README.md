@@ -9,6 +9,11 @@ server["endpoint"] = {
     request in
     return HttpResponse(text: "Hello world")
 }
+server["json"] = {
+    request in
+    return OK(json: ["foo": "bar"])
+}
+
 server.run()
 ```
 
@@ -23,7 +28,8 @@ server["/readonly-users"] = Read(resource: "users").handler
 
 ## Run Example
 ```bash
-curl localhost:8080/endpoint   
+curl localhost:8080/endpoint
+curl localhost:8080/json         
 curl localhost:8080/users -X POST -d '{"name":"Anders", "age": 42}' 
 curl localhost:8080/readonly-users   
 ```

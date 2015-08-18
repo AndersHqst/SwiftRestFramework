@@ -16,6 +16,12 @@ server["endpoint"] = {
     return HttpResponse(text: "Hello world")
 }
 
+// Custom endpoint
+server["json"] = {
+    request in
+    return OK(json: ["foo": "bar"])
+}
+
 // POST and GET any JSON w.r.t. the users collection
 server["/users"] = Create(resource: "users").handler
 

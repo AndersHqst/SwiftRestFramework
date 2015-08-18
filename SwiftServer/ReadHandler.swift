@@ -24,7 +24,7 @@ class Read {
         switch request.verb() {
         case .GET:
             let data = serializer.objects()
-            return HttpResponse(body: .JSON(data))
+            return HttpResponse(json: data)
         default: ()
         }
         
