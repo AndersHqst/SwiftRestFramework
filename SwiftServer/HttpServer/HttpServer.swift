@@ -32,7 +32,7 @@ public class HttpServer
                     handlers.append(expression: regex, handler: newHandler)
                 }
             } catch {
-                    
+                
             }
         }
     }
@@ -51,18 +51,43 @@ public class HttpServer
                     if self.acceptSocket == -1 { return }
                     let socketAddress = Socket.peername(socket)
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), {
+                        
                         let parser = HttpParser()
+                        
                         while let request = parser.nextHttpRequest(socket) {
                             let keepAlive = parser.supportsKeepAlive(request.headers)
-                            if let (expression, handler) = self.findHandler(request.url) {
-                                let capturedUrlsGroups = self.captureExpressionGroups(expression, value: request.url)
-                                let updatedRequest = HttpRequest(url: request.url, urlParams: request.urlParams, method: request.method, headers: request.headers, body: request.body, capturedUrlGroups: capturedUrlsGroups, address: socketAddress)
-
-                                HttpServer.respond(socket, response: handler(updatedRequest), keepAlive: keepAlive)
-                            } else {
-                                HttpServer.respond(socket, response: HttpResponse(), keepAlive: keepAlive)
+                            
+                            // ahk, parse body to dictionary
+                            do {
+                                let body = try self.parseBody(request)
+                                
+                                if let (expression, handler) = self.findHandler(request.url) {
+                                    
+                                    let capturedUrlsGroups = self.captureExpressionGroups(expression, value: request.url)
+                                    
+                                    let updatedRequest = HttpRequest(url: request.url, urlParams: request.urlParams, method: request.method, headers: request.headers, rawBody:request.rawBody, body: body, capturedUrlGroups: capturedUrlsGroups, address: socketAddress)
+                                    
+                                    HttpServer.respond(socket, response: handler(updatedRequest), keepAlive: keepAlive)
+                                } else {
+                                    HttpServer.respond(socket, response: HttpResponse(statusCode: .NotFound), keepAlive: keepAlive)
+                                }
+                                
+                            } catch ErrorMessage.InvalidEncoding {
+                                
+                                let msg = ErrorMessage.InvalidEncoding.toJson()
+                                HttpServer.respond(socket, response: HttpResponse(statusCode: .BadRequest, json: msg), keepAlive: keepAlive)
+                                
+                            } catch ErrorMessage.InvalidJSON {
+                                
+                                let msg = ErrorMessage.InvalidJSON.toJson()
+                                HttpServer.respond(socket, response: HttpResponse(statusCode: .BadRequest, json: msg), keepAlive: keepAlive)
+                                
+                            } catch {
+                                print("uncaught exception");
                             }
+                            
                             if !keepAlive { break }
+                            
                         }
                         Socket.release(socket)
                         HttpServer.lock(self.clientSocketsLock) {
@@ -78,12 +103,12 @@ public class HttpServer
         return false
     }
     
+    // ahk, added this run method so the server can be started with a single call to run()
     public func run(listenPort: in_port_t = 8080, error: NSErrorPointer = nil) {
-        var error: NSError?
-        let start = self.start(listenPort, error: &error)
+        
+        let start = self.start(listenPort, error: error)
         
         if start {
-            // ahk added this here to always be called when starting the server
             print("Server started listening on PORT \(listenPort) Try a connection now...")
             NSRunLoop.mainRunLoop().run()
         } else {
@@ -94,7 +119,7 @@ public class HttpServer
     public func findHandler(url:String) -> (NSRegularExpression, Handler)? {
         return self.handlers.filter {
             $0.0.numberOfMatchesInString(url, options: self.matchingOptions, range: HttpServer.asciiRange(url)) > 0
-        }.first
+            }.first
     }
     
     public func captureExpressionGroups(expression: NSRegularExpression, value: String) -> [String] {
@@ -148,6 +173,32 @@ public class HttpServer
         if let body = response.body() {
             Socket.writeData(socket, data: body)
         }
+    }
+    
+    
+    // Attempt to parse the body as to a dictionary
+    public func parseBody(request: HttpRequest) throws -> AnyObject {
+        
+        // Ignore bodies for GET and DELETE
+        switch request.method {
+        case .GET, .DELETE: return [:]
+        default: ()
+        }
+        
+        guard let data = request.rawBody?.dataUsingEncoding(NSUTF8StringEncoding) else {
+            print("Could not UTF8 encode string from json request body \(request.body)")
+            throw ErrorMessage.InvalidEncoding
+        }
+        
+        let contentType = request.headers["content-type"]
+        if contentType == nil || contentType!.rangeOfString("json") != nil {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments)
+            }
+        }
+        // TODO 'application/x-www-form-urlencoded' -> Dictionary
+        
+        return [:]
     }
 }
 

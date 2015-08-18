@@ -12,17 +12,18 @@ class Create: Read {
     
     override func handler(request: HttpRequest) -> HttpResponse {
         
-        switch request.verb() {
+        switch request.method {
             
         // THIS LOOKS LIKE SHIT
         case .POST:
+            
+            // request body to be sent to the persistence layer
+            
             let rootDir = NSBundle.mainBundle().resourcePath!
-            let data = request.body?.dataUsingEncoding(NSUTF8StringEncoding)
-            let object = try! NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
             let path = rootDir.stringByAppendingPathComponent("\(serializer.resource).json")
             let fm = NSFileManager()
             if !fm.fileExistsAtPath(path) {
-                let wrappedObjects = [object]
+                let wrappedObjects = [request.body]
                 let initData = try! NSJSONSerialization.dataWithJSONObject(wrappedObjects, options: NSJSONWritingOptions.PrettyPrinted)
                 fm.createFileAtPath(path, contents: initData, attributes: nil)
                 
@@ -30,7 +31,7 @@ class Create: Read {
             } else {
                 let existingData = NSData(contentsOfFile: path)
                 var objects = try! NSJSONSerialization.JSONObjectWithData(existingData!, options: NSJSONReadingOptions.AllowFragments) as! Array<AnyObject>
-                objects.append(object)
+                objects.append(request.body)
                 let writeData = try! NSJSONSerialization.dataWithJSONObject(objects, options: NSJSONWritingOptions.PrettyPrinted)
                 
                 writeData.writeToFile(path, atomically: false)

@@ -9,7 +9,19 @@ import Foundation
 public enum StatusCode: Int {
     case OK = 200
     case Created = 201
+    case BadRequest = 400
+    case NotFound = 404
     case MethodNotAllowed = 405
+    
+    func reasonPhrase() -> String {
+        switch self {
+        case .OK                    : return "OK"
+        case .Created               : return "Created"
+        case .BadRequest            : return "Bad request"
+        case .NotFound              : return "Not Found"
+        case .MethodNotAllowed      : return "Method not allowed"
+        }
+    }
 }
 
 public class HttpResponse {
@@ -65,11 +77,7 @@ public class HttpResponse {
     }
     
     func reasonPhrase() -> String {
-        switch _statusCode {
-        case .OK                    : return "OK"
-        case .Created               : return "Created"
-        case .MethodNotAllowed      : return "Method not allowed"
-        }
+        return _statusCode.reasonPhrase()
     }
     
     func headers() -> [String: String] {

@@ -2,7 +2,7 @@
 
 This is WIP
 
-## Custom endpoints
+## Hello world
 ```swift
 let server = HttpServer()
 
@@ -10,13 +10,26 @@ server["endpoint"] = {
     request in
     return HttpResponse(text: "Hello world")
 }
+server.run()
+```
 
+
+## Handling requests
+```swift
 server["json"] = {
     request in
-    return OK(json: ["foo": "bar"])
+    switch request.method {
+        
+    case .POST:
+        // Do something with the body
+        return Created(json: request.body)
+        
+    case .GET:
+        return OK(json: ["foo": "bar"])
+        
+    default: return MethodNotAllowed()
+    }
 }
-
-server.run()
 ```
 
 ## Generic endpoints
@@ -32,8 +45,9 @@ server["/readonly-users"] = Read(resource: "users").handler
 ## Run Examples
 ```bash
 curl localhost:8080/endpoint
-curl localhost:8080/json         
-curl localhost:8080/users -X POST -d '{"name":"Anders", "age": 42}' 
+curl localhost:8080/json 
+curl localhost:8080/json -X POST -d '{"bar":"baz"}' -H "content-type:application/json"       
+curl localhost:8080/users -X POST -d '{"name":"Anders", "age": 42}' -H "content-type:application/json" 
 curl localhost:8080/readonly-users   
 ```
 

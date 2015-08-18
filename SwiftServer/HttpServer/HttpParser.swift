@@ -20,7 +20,7 @@ class HttpParser {
                 if error != nil { error.memory = err("Invalid status line: \(statusLine)") }
                 return nil
             }
-            let method = statusTokens[0]
+            let method = HttpMethod.fromString(statusTokens[0])
             let path = statusTokens[1]
             let urlParams = extractUrlParams(path)
             // TODO extract query parameters
@@ -29,10 +29,10 @@ class HttpParser {
                 // 'application/x-www-form-urlencoded' -> Dictionary
                 // 'multipart' -> Dictionary
                 if let contentLength = headers["content-length"], let contentLengthValue = Int(contentLength) {
-                    let body = nextBody(socket, size: contentLengthValue, error: error)
-                    return HttpRequest(url: path, urlParams: urlParams, method: method, headers: headers, body: body, capturedUrlGroups: [], address: nil)
+                    let rawBody = nextBody(socket, size: contentLengthValue, error: error)
+                    return HttpRequest(url: path, urlParams: urlParams, method: method, headers: headers, rawBody:rawBody, body: [:], capturedUrlGroups: [], address: nil)
                 }
-                return HttpRequest(url: path, urlParams: urlParams, method: method, headers: headers, body: nil, capturedUrlGroups: [], address: nil)
+                return HttpRequest(url: path, urlParams: urlParams, method: method, headers: headers, rawBody: nil, body:[:], capturedUrlGroups: [], address: nil)
             }
         }
         return nil

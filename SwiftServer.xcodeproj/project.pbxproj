@@ -18,6 +18,10 @@
 		4CA7D6BA1B83B16D00522524 /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7D6B71B83B16D00522524 /* Created.swift */; };
 		4CA7D6BB1B83B16D00522524 /* HttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7D6B81B83B16D00522524 /* HttpResponse.swift */; };
 		4CA7D6BC1B83B16D00522524 /* OK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7D6B91B83B16D00522524 /* OK.swift */; };
+		4CA7D6BF1B83C2DB00522524 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7D6BE1B83C2DB00522524 /* Database.swift */; };
+		4CA7D6C11B83C9B800522524 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7D6C01B83C9B800522524 /* Config.swift */; };
+		4CA7D6C31B83D6E100522524 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7D6C21B83D6E100522524 /* ErrorMessage.swift */; };
+		4CA7D6C51B83EFDE00522524 /* MethodNotAllowed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7D6C41B83EFDE00522524 /* MethodNotAllowed.swift */; };
 		4CE2A1E61B7FBEBA000636C9 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE2A1E51B7FBEBA000636C9 /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +50,10 @@
 		4CA7D6B71B83B16D00522524 /* Created.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Created.swift; path = Responses/Created.swift; sourceTree = "<group>"; };
 		4CA7D6B81B83B16D00522524 /* HttpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpResponse.swift; path = Responses/HttpResponse.swift; sourceTree = "<group>"; };
 		4CA7D6B91B83B16D00522524 /* OK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OK.swift; path = Responses/OK.swift; sourceTree = "<group>"; };
+		4CA7D6BE1B83C2DB00522524 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Database.swift; path = Database/Database.swift; sourceTree = "<group>"; };
+		4CA7D6C01B83C9B800522524 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = SwiftServer/Config.swift; sourceTree = "<group>"; };
+		4CA7D6C21B83D6E100522524 /* ErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorMessage.swift; path = Responses/ErrorMessage.swift; sourceTree = "<group>"; };
+		4CA7D6C41B83EFDE00522524 /* MethodNotAllowed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MethodNotAllowed.swift; path = Responses/MethodNotAllowed.swift; sourceTree = "<group>"; };
 		4CE2A1E21B7FBEBA000636C9 /* SwiftServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CE2A1E51B7FBEBA000636C9 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +83,7 @@
 				4CA7D6AB1B83B14300522524 /* HttpParser.swift */,
 				4CA7D6AC1B83B14300522524 /* HttpServer.swift */,
 				4CA7D6AD1B83B14300522524 /* Socket.swift */,
+				4CA7D6C21B83D6E100522524 /* ErrorMessage.swift */,
 			);
 			name = HttpServer;
 			sourceTree = "<group>";
@@ -85,6 +94,7 @@
 				4CA7D6B71B83B16D00522524 /* Created.swift */,
 				4CA7D6B81B83B16D00522524 /* HttpResponse.swift */,
 				4CA7D6B91B83B16D00522524 /* OK.swift */,
+				4CA7D6C41B83EFDE00522524 /* MethodNotAllowed.swift */,
 			);
 			name = Responses;
 			sourceTree = "<group>";
@@ -122,9 +132,18 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		4CA7D6BD1B83C27F00522524 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				4CA7D6BE1B83C2DB00522524 /* Database.swift */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
 		4CE2A1D91B7FBEBA000636C9 = {
 			isa = PBXGroup;
 			children = (
+				4CA7D6C01B83C9B800522524 /* Config.swift */,
 				4C5843C31B7FFEDA00EBA76F /* Resources */,
 				4CE2A1E41B7FBEBA000636C9 /* SwiftServer */,
 				4CE2A1E31B7FBEBA000636C9 /* Products */,
@@ -142,6 +161,7 @@
 		4CE2A1E41B7FBEBA000636C9 /* SwiftServer */ = {
 			isa = PBXGroup;
 			children = (
+				4CA7D6BD1B83C27F00522524 /* Database */,
 				4CA7D6A61B83B12600522524 /* Models */,
 				4CA7D6A51B83B11F00522524 /* Serializers */,
 				4CA7D6A41B83B11300522524 /* Handlers */,
@@ -213,14 +233,18 @@
 				4CA7D6B21B83B14A00522524 /* Model.swift in Sources */,
 				4CA7D6B61B83B15800522524 /* Serializer.swift in Sources */,
 				4CA7D6BA1B83B16D00522524 /* Created.swift in Sources */,
+				4CA7D6C11B83C9B800522524 /* Config.swift in Sources */,
 				4CA7D6AE1B83B14300522524 /* HttpParser.swift in Sources */,
 				4CE2A1E61B7FBEBA000636C9 /* main.swift in Sources */,
 				4CA7D6BC1B83B16D00522524 /* OK.swift in Sources */,
+				4CA7D6C31B83D6E100522524 /* ErrorMessage.swift in Sources */,
 				4CA7D6B01B83B14300522524 /* Socket.swift in Sources */,
 				4CA7D6AF1B83B14300522524 /* HttpServer.swift in Sources */,
 				4CA7D6B41B83B15100522524 /* HttpRequest.swift in Sources */,
+				4CA7D6C51B83EFDE00522524 /* MethodNotAllowed.swift in Sources */,
 				4CA7D6BB1B83B16D00522524 /* HttpResponse.swift in Sources */,
 				4CA7D6AA1B83B13200522524 /* ReadHandler.swift in Sources */,
+				4CA7D6BF1B83C2DB00522524 /* Database.swift in Sources */,
 				4CA7D6A91B83B13200522524 /* CreateHandle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

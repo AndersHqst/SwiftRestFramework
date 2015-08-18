@@ -19,7 +19,17 @@ server["endpoint"] = {
 // Custom endpoint
 server["json"] = {
     request in
-    return OK(json: ["foo": "bar"])
+    switch request.method {
+        
+    case .POST:
+        // Do something with the body
+        return Created(json: request.body)
+        
+    case .GET:
+        return OK(json: ["foo": "bar"])
+        
+    default: return MethodNotAllowed()
+    }
 }
 
 // POST and GET /users. No validation. Subject to a "users" collection

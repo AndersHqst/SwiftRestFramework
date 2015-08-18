@@ -21,7 +21,7 @@ class Read {
     
     func handler(request: HttpRequest) -> HttpResponse {
         
-        switch request.verb() {
+        switch request.method {
         case .GET:
             let data = serializer.objects()
             return HttpResponse(json: data)
