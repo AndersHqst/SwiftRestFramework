@@ -1,0 +1,21 @@
+{
+  "name": "Swifter",
+  "version": "1.0.1",
+  "summary": "Tiny http server engine written in Swift programming language.",
+  "homepage": "https://github.com/glock45/swifter",
+  "license": {
+    "type": "Copyright",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Damian Kołakowski": "kolakowski.damian@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/glock45/swifter.git"
+  },
+  "platforms": {
+    "ios": null
+  },
+  "requires_arc": true,
+  "source_files": "Common/*.{h,m,swift}"
+}
