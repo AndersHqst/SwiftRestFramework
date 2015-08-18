@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C9047D91B7FED94000CD23E /* DemoServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9047D11B7FED94000CD23E /* DemoServer.swift */; };
-		4C9047DA1B7FED94000CD23E /* HttpHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9047D21B7FED94000CD23E /* HttpHandlers.swift */; };
 		4C9047DB1B7FED94000CD23E /* HttpParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9047D31B7FED94000CD23E /* HttpParser.swift */; };
 		4C9047DC1B7FED94000CD23E /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9047D41B7FED94000CD23E /* HttpRequest.swift */; };
 		4C9047DD1B7FED94000CD23E /* HttpResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9047D51B7FED94000CD23E /* HttpResponse.swift */; };
@@ -35,8 +33,6 @@
 
 /* Begin PBXFileReference section */
 		4C5843C41B7FFF0600EBA76F /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = users.json; path = Resources/users.json; sourceTree = "<group>"; };
-		4C9047D11B7FED94000CD23E /* DemoServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoServer.swift; sourceTree = "<group>"; };
-		4C9047D21B7FED94000CD23E /* HttpHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpHandlers.swift; sourceTree = "<group>"; };
 		4C9047D31B7FED94000CD23E /* HttpParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpParser.swift; sourceTree = "<group>"; };
 		4C9047D41B7FED94000CD23E /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		4C9047D51B7FED94000CD23E /* HttpResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpResponse.swift; sourceTree = "<group>"; };
@@ -72,8 +68,6 @@
 		4CA7D6941B83799D00522524 /* HttpServer */ = {
 			isa = PBXGroup;
 			children = (
-				4C9047D11B7FED94000CD23E /* DemoServer.swift */,
-				4C9047D21B7FED94000CD23E /* HttpHandlers.swift */,
 				4C9047D31B7FED94000CD23E /* HttpParser.swift */,
 				4C9047D41B7FED94000CD23E /* HttpRequest.swift */,
 				4C9047D51B7FED94000CD23E /* HttpResponse.swift */,
@@ -178,10 +172,8 @@
 				4C9047DE1B7FED94000CD23E /* HttpServer.swift in Sources */,
 				4CE2A1E61B7FBEBA000636C9 /* main.swift in Sources */,
 				4C9047E01B7FED94000CD23E /* Socket.swift in Sources */,
-				4C9047D91B7FED94000CD23E /* DemoServer.swift in Sources */,
 				4CA7D6981B837A1500522524 /* Model.swift in Sources */,
 				4CA7D69C1B837ACE00522524 /* CreateHandle.swift in Sources */,
-				4C9047DA1B7FED94000CD23E /* HttpHandlers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,11 +16,11 @@ server["demo"] = {
     return HttpResponse(text: "Hello world")
 }
 
-// GET and post any JSON to the users collection
-server["/users"] = Read(resource: "users").handler
+// POST and GET any JSON w.r.t. the users collection
+server["/users"] = Create(resource: "users").handler
 
-// POST and GET any JSON to the users collection
-server["/post"] = Create(resource: "users").handler
+// GET on the users collection
+server["/readonly-users"] = Read(resource: "users").handler
 
 server.run()
 

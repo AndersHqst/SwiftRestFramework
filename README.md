@@ -14,12 +14,18 @@ server.run()
 
 ## Generic endpoints
 ```swift
-// GET the the users collection
-server["/users"] = Read(resource: "users").handler
-
 // POST and GET any JSON w.r.t. the users collection
-server["/post"] = Create(resource: "users").handler
+server["/users"] = Create(resource: "users").handler
+
+// GET on the users collection
+server["/readonly-users"] = Read(resource: "users").handler
 ```    
+
+## Run Example
+```bash
+curl localhost:8080/users -X POST -d '{"name":"Anders", "age": 42}' 
+curl localhost:8080/readonly-users   
+```
 
 ## Credits
 This implementation currency relies on much of the code Damian Kołakowski https://github.com/glock45/swifter
