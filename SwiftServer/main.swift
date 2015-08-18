@@ -11,7 +11,7 @@ import Foundation
 let server = HttpServer()
 
 // Custom endpoint
-server["demo"] = {
+server["endpoint"] = {
     request in
     return HttpResponse(text: "Hello world")
 }
