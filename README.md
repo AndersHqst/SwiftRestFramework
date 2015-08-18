@@ -52,7 +52,7 @@ curl localhost:8080/readonly-users
 ```
 
 ## Credits
-This implementation currency relies on much of the code Damian Kołakowski https://github.com/glock45/swifter
+This implementation builds on the Swift HttpServer implementation by Damian Kołakowski https://github.com/glock45/swifter
 
 ## License
 MIT
