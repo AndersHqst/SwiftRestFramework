@@ -19,14 +19,14 @@ server.run()
 
 ## Generic endpoints
 ```swift
-// POST and GET any JSON w.r.t. the users collection
+// POST and GET /users. No validation. Subject to a "users" collection
 server["/users"] = Create(resource: "users").handler
 
-// GET on the users collection
+// GET /users. Returns the "users" collection
 server["/readonly-users"] = Read(resource: "users").handler
 ```    
 
-## Run Example
+## Run Examples
 ```bash
 curl localhost:8080/endpoint
 curl localhost:8080/json         
