@@ -2,6 +2,5 @@
 # platform :ios, '6.0'
 
 target 'SwiftServer' do
- pod 'Swifter', :git => 'https://github.com/glock45/swifter'
 end
 
