@@ -5,10 +5,12 @@ This is WIP
 ## Custom endpoints
 ```swift
 let server = HttpServer()
+
 server["endpoint"] = {
     request in
     return HttpResponse(text: "Hello world")
 }
+
 server["json"] = {
     request in
     return OK(json: ["foo": "bar"])
