@@ -25,7 +25,7 @@ server["json"] = {
 // POST and GET /users. No validation. Subject to a "users" collection
 server["/users"] = Create(resource: "users").handler
 
-// GET /users. Returns the "users" collection
+// GET /readonly-users. Returns the "users" collection
 server["/readonly-users"] = Read(resource: "users").handler
 
 server.run()
